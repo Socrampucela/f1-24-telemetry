@@ -70,37 +70,6 @@ def actualizar_ui():
         x = datos["posicion_x"]
         z = datos["posicion_z"]
 
-        if x != 0 and z != 0:
-            # Actualizar bordes máximos del circuito
-            min_x = min(min_x, x)
-            max_x = max(max_x, x)
-            min_z = min(min_z, z)
-            max_z = max(max_z, z)
-
-            puntos_pista.append((x, z))
-
-            w = canvas_mapa.winfo_width()
-            h = canvas_mapa.winfo_height()
-
-            # Dibujar la trazada del circuito si hay suficientes puntos
-            if len(puntos_pista) > 1 and w > 10:
-                canvas_mapa.delete("pista")
-                puntos_pantalla = []
-                for px, pz in puntos_pista:
-                    cx, cy = transformar_coordenadas(px, pz, w, h)
-                    puntos_pantalla.extend([cx, cy])
-
-                if len(puntos_pantalla) >= 4:
-                    canvas_mapa.create_line(puntos_pantalla, fill="#555555", width=3, tags="pista")
-
-            # Dibujar o mover el indicador del coche (círculo rojo)
-            cx, cy = transformar_coordenadas(x, z, w, h)
-            r = 6  # radio del punto
-            if punto_coche is None:
-                punto_coche = canvas_mapa.create_oval(cx - r, cy - r, cx + r, cy + r, fill="#FF1801", outline="white", width=2)
-            else:
-                canvas_mapa.coords(punto_coche, cx - r, cy - r, cx + r, cy + r)
-
     root.after(30, actualizar_ui)
 
 hilo_red = threading.Thread(
