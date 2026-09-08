@@ -2,7 +2,7 @@ import customtkinter
 import queue
 import threading
 import tkinter as tk
-from main import iniciar_escucha_telemetria
+from telemetria.receptor import iniciar_escucha_telemetria
 
 cola_datos = queue.Queue()
 
